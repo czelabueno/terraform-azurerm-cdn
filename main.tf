@@ -5,6 +5,13 @@ terraform {
       version = "~> 2.46.0"
     }
   }
+  backend "remote" {
+    organization = "devopsperu-demo"
+
+    workspaces {
+      name = "az-cdn-module"
+    }
+  }
 }
 
 provider "azurerm" {
