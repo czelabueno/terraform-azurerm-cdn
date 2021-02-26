@@ -37,7 +37,7 @@ resource "azurerm_cdn_profile" "iacexample" {
 }
 
 resource "azurerm_cdn_endpoint" "iacexample" {
-  name                = "iaccdnendpoint"
+  name                = "iaccdnendpoint${random_integer.iacexample.result}"
   profile_name        = azurerm_cdn_profile.iacexample.name
   location            = azurerm_resource_group.iacexample.location
   resource_group_name = azurerm_resource_group.iacexample.name
