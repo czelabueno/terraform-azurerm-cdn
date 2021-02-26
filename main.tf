@@ -24,7 +24,7 @@ resource "random_integer" "iacexample" {
 }
 
 resource "azurerm_resource_group" "iacexample" {
-  name     = "iacunittesting"
+  name     = upper("${var.type}_${var.stage}")
   location = "eastus2"
   tags = local.tags
 }
@@ -41,8 +41,8 @@ resource "azurerm_cdn_endpoint" "iacexample" {
   profile_name        = azurerm_cdn_profile.iacexample.name
   location            = azurerm_resource_group.iacexample.location
   resource_group_name = azurerm_resource_group.iacexample.name
-  #is_http_allowed = false
-  #is_https_allowed = true
+  is_http_allowed = false
+  is_https_allowed = true
 
   origin {
     name      = "stacendpoint"
