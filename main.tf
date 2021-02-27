@@ -33,16 +33,16 @@ resource "azurerm_resource_group" "iacexample" {
 
 resource "azurerm_cdn_profile" "iacexample" {
   name                = "iaccdn${random_integer.iacexample.result}"
-  location            = local.existing_rg ? data.azurerm_resource_group.current.location : azurerm_resource_group.iacexample.location
-  resource_group_name = local.existing_rg ? data.azurerm_resource_group.current.name : azurerm_resource_group.iacexample.name
+  location            = local.existing_rg ? data.azurerm_resource_group.current.location : azurerm_resource_group.iacexample[count.index].location
+  resource_group_name = local.existing_rg ? data.azurerm_resource_group.current.name : azurerm_resource_group.iacexample[count.index].name
   sku                 = "Standard_Verizon"
 }
 
 resource "azurerm_cdn_endpoint" "iacexample" {
   name                = "iaccdnendpoint${random_integer.iacexample.result}"
   profile_name        = azurerm_cdn_profile.iacexample.name
-  location            = azurerm_resource_group.iacexample.location
-  resource_group_name = azurerm_resource_group.iacexample.name
+  location            = local.existing_rg ? data.azurerm_resource_group.current.location : azurerm_resource_group.iacexample[count.index].location
+  resource_group_name = local.existing_rg ? data.azurerm_resource_group.current.name : azurerm_resource_group.iacexample[count.index].name
   #is_http_allowed = false
   #is_https_allowed = true
 
