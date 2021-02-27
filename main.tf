@@ -24,7 +24,7 @@ resource "random_integer" "iacexample" {
 }
 
 resource "azurerm_resource_group" "iacexample" {
-  count = existing_rg ? 0 : 1
+  count = local.existing_rg ? 0 : 1
 
   name     = upper("${var.type}_${var.stage}")
   location = "eastus2"
@@ -33,8 +33,8 @@ resource "azurerm_resource_group" "iacexample" {
 
 resource "azurerm_cdn_profile" "iacexample" {
   name                = "iaccdn${random_integer.iacexample.result}"
-  location            = existing_rg ? data.azurerm_resource_group.current.location : azurerm_resource_group.iacexample.location
-  resource_group_name = existing_rg ? data.azurerm_resource_group.current.name : azurerm_resource_group.iacexample.name
+  location            = local.existing_rg ? data.azurerm_resource_group.current.location : azurerm_resource_group.iacexample.location
+  resource_group_name = local.existing_rg ? data.azurerm_resource_group.current.name : azurerm_resource_group.iacexample.name
   sku                 = "Standard_Verizon"
 }
 
