@@ -15,6 +15,8 @@ locals {
     tags = {
         provisionedBy = "https://github.com/czelabueno/infrastructure-as-code-testing"
     }
+
+    existing_rg = data.azurerm_resource_group.current != null ? true : false
 }
 
 data "azurerm_subscription" "current" {}
