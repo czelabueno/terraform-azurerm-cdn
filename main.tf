@@ -49,4 +49,6 @@ resource "azurerm_cdn_endpoint" "iacexample" {
     host_name = var.static_endpoint
     https_port = 443
   }
+
+  origin_host_header = var.static_endpoint
 }
