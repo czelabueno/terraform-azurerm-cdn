@@ -16,7 +16,7 @@ locals {
         provisionedBy = "https://github.com/czelabueno/infrastructure-as-code-testing"
     }
 
-    existing_rg = data.azurerm_resource_group.current != null ? true : false
+    existing_rg = data.azurerm_resource_group.current.name != "" ? true : false
 }
 
 data "azurerm_subscription" "current" {}
