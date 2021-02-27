@@ -24,7 +24,8 @@ resource "random_integer" "iacexample" {
 }
 
 resource "azurerm_resource_group" "iacexample" {
-  count = local.existing_resource_group
+  count = local.existing_resource_group ? 1 : 0
+
   name     = upper("${var.type}_${var.stage}")
   location = "eastus2"
   tags = local.tags
